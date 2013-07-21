@@ -1,11 +1,33 @@
 SampleApp::Application.routes.draw do
-  get "static_pages/home"
+  get "users/new"
 
-  get "static_pages/help"
+  #root to: 'static_pages#home', :via => :get
+  match '/', to: 'static_pages#home', :via => :get
+  match '/users/signup', to: 'users#new', :via => :get
+  match '/static_pages/home', to: 'static_pages#home', :via => :get
+  #get '/static_pages/help', to: 'static_pages#help', as: 'help_path'
+  match '/static_pages/help', to: 'static_pages#help', :via => :get
+  #match '/help', to: 'static_pages#help'
+  #print help_path
+  match '/static_pages/about', to: 'static_pages#about', :via => :get
+  match '/static_pages/contact', to: 'static_pages#contact', :via => :get
 
-  get "static_pages/about"
+  #get '/patients/:id', to: 'patients#show', as: 'patient'
+  #root
+  #get 'static_pages/' , to: 'static_pages#home', :via => :get
+  #match '/contact', to: 'static_pages#contact', :via => :get
+  
 
-  get "static_pages/contact"
+  #get "static_pages/contact"
+  #get "static_pages/about"
+  #get "static_pages/help"
+  #get "static_pages/home"
+
+
+    #root_path => '/'
+  #root_url => 'http://localhost:3000'
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

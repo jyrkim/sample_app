@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.3'
+gem 'rails', '3.2.13'
+gem 'bootstrap-sass', '2.0.0'
 
 gem 'pg', '0.12.2'
 
@@ -10,7 +11,7 @@ gem 'pg', '0.12.2'
 group :development, :test do 
 #   uncomment below to use sqlite3 for development
 #  gem 'sqlite3', '1.3.5'
-  gem 'rspec-rails', '2.9.0'
+  gem 'rspec-rails', '2.11.0'
  end
 
 
@@ -33,9 +34,9 @@ group :test do
 end
 
 #   uncomment below when using sqlite3 for development
-#group :production do 
-#  gem 'pg', '0.12.2'
-#end
+group :production do 
+  gem 'pg', '0.12.2'
+end
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
