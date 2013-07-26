@@ -11,11 +11,12 @@
 #
 
 require 'spec_helper'
+#require "app/helpers/user_helper"
 
 describe User do
 
-  before { @user = User.new(name: "Bart Simpson", 
-                            email: "bart@dudes.org",
+  before { @user = User.new(name: "Example User", 
+                            email: "user@example.com",
                             password: "foobar",
                             password_confirmation: "foobar")}
 
