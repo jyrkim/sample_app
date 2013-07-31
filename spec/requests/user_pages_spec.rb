@@ -58,8 +58,7 @@ describe "User pages" do
 	 	 		it { should have_content("Email can't be blank") }
 	 	 		it { should have_content('Email is invalid') }
 	 	 		it { should have_content("Password is too short (minimum is 6 characters)") }
-	 	 		it { should have_content("Password confirmation can't be blank") }
-	 	 		
+	 	 		it { should have_content("Password confirmation can't be blank") }	 	 		
 	 	 	end 	 	
 	 	end
 
@@ -84,7 +83,7 @@ describe "User pages" do
 
 	 	 		it { should have_selector('title', text: user.name) }
         		it { should have_selector('div.alert.alert-success', text: 'Welcome') }
-        		#it { should have_link('Sign out') }
+        		it { should have_link('Sign out') }
 	 	 	end 	
 	 	end
 
