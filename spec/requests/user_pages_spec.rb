@@ -6,11 +6,13 @@ describe "User pages" do
  	subject { page }
 
  	#visit '/users/new'
-	let(:users_new_path) {"/users/new"}
+	#let(:users_new_path) {"/users/new"}
 
 	describe "Sign up page" do
 	    
-	    before { visit "#{users_new_path}"  }
+	   # before { visit "#{users_new_path}"  }
+
+	   before { visit signup_path  }
 
 	    it { should have_selector('h1', :text => 'Sign up') }
 
@@ -102,8 +104,8 @@ describe "User pages" do
 
 	 describe "signup" do
 
-	 	#before { visit signup_path  }
-	 	before { visit "#{users_new_path}"  }
+	 	before { visit signup_path  }
+	 	#before { visit "#{users_new_path}"  }
 	 	#before { visit "users/new"  }
 
 
