@@ -186,12 +186,11 @@ describe "when email address is already taken" do
 
 
     it "should destroy associated microposts" do
-      #microposts ==  "1" # @user.microposts
-      let!(:microposts) do 
-        @user.microposts 
-      end
-      #put microposts.count #test
+      microposts = @user.microposts.dup
+
       @user.destroy
+
+      microposts.should_not be_empty
       microposts.each do |micropost|
         Micropost.find_by_id(micropost.id).should be_nil
       end
