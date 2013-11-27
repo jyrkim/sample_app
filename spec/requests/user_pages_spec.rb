@@ -9,20 +9,13 @@ describe "User pages" do
  	#visit '/users/new'
 	#let(:users_new_path) {"/users/new"}
 
-	describe "Sign up page" do
-	    
-	   # before { visit "#{users_new_path}"  }
+  	describe "signup page" do
 
-	   before { visit signup_path  }
+    	before { visit signup_path }
 
-	    it { should have_selector('h1', :text => 'Sign up') }
-
-	    # it { page.should have_selector('title', :text => "#{base_title}") }
-	    #it { should have_selector('title', text: full_title('Sign up')) }
-	    it { should have_selector('title', text: 'Sign up') }
-
-	    #it { page.should_not have_selector('title', :text => "| Home") }
-	 end 
+    	it { should have_selector('h1', text: 'Sign up') }
+    	it { should have_selector('title', text: full_title('Sign up')) }
+  	end
 
 	 describe "profile page" do
 
@@ -56,15 +49,15 @@ describe "User pages" do
 
 	    		it "should increment the followed user count" do
 	    			expect do
-	    				#click_button "Follow"
-	    				find_field('Follow').click
+	    				click_button "Follow"
+	    				#find_field('Follow').click
 	    			end.to change(user.followed_users, :count).by(1)
 	    		end
 
 	    		it "should increment the other user's followers  count" do
 	    			expect do
-	    				find_field('Follow').click
-	    				#click_button "Follow"
+	    				#find_field('Follow').click
+	    				click_button "Follow"
 	    			end.to change(other_user.followers, :count).by(1)
 	    		end
 
