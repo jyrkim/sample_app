@@ -13,7 +13,7 @@
 
 def sign_in(user)
 	#puts signin_path
-	visit '/sessions/signin' #signin_path
+	visit  signin_path  #'/sessions/signin'
 	fill_in "Email", with: user.email.upcase
     fill_in "Password", with: user.password
     click_button "Sign in"

@@ -1,5 +1,6 @@
 require 'spec_helper'
 #require "app/helpers/user_helper"
+#include SessionsHelper
 
 describe "User pages" do
 
@@ -25,7 +26,7 @@ describe "User pages" do
 
 	 describe "profile page" do
 
-	    let(:user) { FactoryGirl.create(:user)}
+	    let(:user) { FactoryGirl.create(:user) }
 
 	    let(:m1) { FactoryGirl.create(:micropost, user: user, content: "Foo") }
 	    let(:m2) { FactoryGirl.create(:micropost, user: user, content: "Bar") }
@@ -55,13 +56,15 @@ describe "User pages" do
 
 	    		it "should increment the followed user count" do
 	    			expect do
-	    				click_button "Follow"
+	    				#click_button "Follow"
+	    				find_field('Follow').click
 	    			end.to change(user.followed_users, :count).by(1)
 	    		end
 
 	    		it "should increment the other user's followers  count" do
 	    			expect do
-	    				click_button "Follow"
+	    				find_field('Follow').click
+	    				#click_button "Follow"
 	    			end.to change(other_user.followers, :count).by(1)
 	    		end
 
@@ -209,12 +212,19 @@ describe "User pages" do
 
 	 describe "index" do
 
-	 	let(:user) { FactoryGirl.create(:user) }
+	 	#let(:user) { FactoryGirl.create(:user) }
 
-	 	before(:each) do
-	 		sign_in user
-	 		visit users_path
-	 	end
+	 	#before(:each) do
+	 	#	sign_in user
+	 	#	visit users_path
+	 	#end
+
+	 	before do
+	      sign_in FactoryGirl.create(:user)
+	      FactoryGirl.create(:user, name: "Bob", email: "bob@example.com")
+	      FactoryGirl.create(:user, name: "Ben", email: "ben@example.com")
+	      visit users_path
+	    end
 
 	 	#before do
 	 	#	sign_in FactoryGirl.create(:user)

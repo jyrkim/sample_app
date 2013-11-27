@@ -44,7 +44,7 @@ describe "Static pages" do
         FactoryGirl.create(:micropost, user: user, content: "Lorem ipsum")
         FactoryGirl.create(:micropost, user: user, content: "Dolor sit amet")
         sign_in user
-        visit "#{root_path}"
+        visit root_path
       end
       it "should render the user's feed" do
         user.feed.each do |item|
@@ -57,7 +57,7 @@ describe "Static pages" do
 
         before do
           other_user.follow!(user)
-          visit "#{root_path}"
+          visit root_path
         end
 
         it { should have_link("0 following", href: following_user_path(user)) }
