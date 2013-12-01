@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'capybara/rails'
 #require "app/helpers/user_helper"
 #include SessionsHelper
 
@@ -21,8 +22,8 @@ describe "User pages" do
 
 	    let(:user) { FactoryGirl.create(:user) }
 
-	    let(:m1) { FactoryGirl.create(:micropost, user: user, content: "Foo") }
-	    let(:m2) { FactoryGirl.create(:micropost, user: user, content: "Bar") }
+	    let!(:m1) { FactoryGirl.create(:micropost, user: user, content: "Foo") }
+	    let!(:m2) { FactoryGirl.create(:micropost, user: user, content: "Bar") }
 
 
 	    			#/users/id                
@@ -230,14 +231,45 @@ describe "User pages" do
 	 	it { should have_selector('h1', text: 'All users')}
 
 	 	describe "pagination" do
-	 		it { should have_selector('div.pagination')}
 
-	 		it "should list each user" do
-	 			User.paginate(page:1).each do |user|
-	 				page.should have_selector('li', text: user.name)
-	 			end
-	 		end
-	 	end
+	      before(:all) { 30.times { FactoryGirl.create(:user) } }
+	      after(:all)  { User.delete_all }
+
+	      let(:first_page)  { User.paginate(page: 1) }
+	      let(:second_page) { User.paginate(page: 2) }
+
+	      it { should have_link('Next') }
+	      its(:html) { should match('>2</a>') }
+
+	      it "should list each user" do
+	        User.all[0..2].each do |user|
+	          page.should have_selector('li', text: user.name)
+	        end
+	      end
+
+	      it "should list the first page of users" do
+	        first_page.each do |user|
+	          page.should have_selector('li', text: user.name)
+	        end
+	      end
+
+	      it "should not list the second page of users" do
+	        second_page.each do |user|
+	          page.should_not have_selector('li', text: user.name)
+	        end
+	      end
+
+	      describe "showing the second page" do
+	        before { visit users_path(page: 2) }
+
+	        it "should list the second page of users" do
+	          second_page.each do |user|
+	            page.should have_selector('li', text: user.name)
+	          end
+	        end
+	      end
+	    end
+
 
 	 	describe "delete links" do
 	 		it { should_not have_link('delete') }
@@ -289,15 +321,14 @@ describe "User pages" do
 	    end
 
 	    describe "followers" do
+	      before do
+	        sign_in other_user
+	        visit followers_user_path(other_user)
+	      end
 
-	    	before do
-	    		sign_in other_user
-	    		visit followers_user_path(user)
-	    	end
-
-	    	it { should have_selector('title', text: full_title('Followers')) }
-	    	it { should have_selector('h3', text: 'Followers' ) }
-	    	it { should have_link(user.name, href: user_path(user)) }
+	      it { should have_selector('title', text: full_title('Followers')) }
+	      it { should have_selector('h3', text: 'Followers') }
+	      it { should have_link(user.name, href: user_path(user)) }
 	    end
 
 	end
