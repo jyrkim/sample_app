@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
+  before_filter :signed_in_user, 
+        only: [:index, :edit, :update, :destroy, :following, :followers]
   before_filter :correct_user, only: [:edit, :update]
   before_filter :admin_user, only: :destroy
   
@@ -72,18 +73,18 @@ class UsersController < ApplicationController
       #if not signed in store location and redirect
       unless signed_in?
         store_location 
-        redirect_to '/sessions/signin', notice: "Please sign in."
+        redirect_to signin_path, notice: "Please sign in."
       end  
     end
 
     def correct_user
        @user = User.find(params[:id])
-       redirect_to('/sessions/signin') unless current_user?(@user)
+       redirect_to(root_path) unless current_user?(@user)
         
     end
 
      def admin_user
-       redirect_to('/sessions/signin') unless current_user.admin?
+       redirect_to(root_url) unless current_user.admin?
         
     end
 end
