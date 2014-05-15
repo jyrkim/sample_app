@@ -7,6 +7,7 @@ gem 'faker', '1.0.1'
 gem 'will_paginate', '3.0.3'
 gem 'bootstrap-will_paginate', '0.0.6'
 gem 'jquery-rails', '~> 2.0.0'
+gem 'rails_12factor'
 
 gem 'pg', '0.12.2'
 
@@ -46,10 +47,10 @@ group :test do
 end
 
 #   uncomment below when using sqlite3 for development
-group :production do 
+#group :production do 
   #gem 'sqlite3', '1.3.5'
-  gem 'pg', '0.12.2'
-end
+  #gem 'pg', '0.12.2'
+#end
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
